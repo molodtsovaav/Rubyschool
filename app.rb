@@ -8,6 +8,7 @@ get '/' do
 end
 
 get '/about' do
+	@error = 'smth wrong!'
 	erb :about
 end
 
@@ -22,7 +23,11 @@ post '/visit' do
 	@barber = params[:barber]
 	@color = params[:color]
 	
-	@message = "Уважаемый #{@username}, мы ждем вас в Barber Shop в #{@datetime} к #{@barber}! Цвет окрашивания: #{@color} "
+	if @username == ''
+		@error = 'Введите имя'
+		return erb :visit
+	end	
+	@message = "Отлично! Уважаемый #{@username}, мы ждем вас в Barber Shop в #{@datetime} к #{@barber}! Цвет окрашивания: #{@color} "
 
 
 
