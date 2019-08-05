@@ -20,14 +20,14 @@ post '/visit' do
 	@phone = params[:phone]
 	@datetime = params[:datetime]
 	@barber = params[:barber]
-
-	@title = 'Отлично!'
-	@message = "Уважаемый #{@username}, мы ждем вас в Barber Shop в #{@datetime} к #{@barber}! "
+	@color = params[:color]
+	
+	@message = "Уважаемый #{@username}, мы ждем вас в Barber Shop в #{@datetime} к #{@barber}! Цвет окрашивания: #{@color} "
 
 
 
 	@f = File.open "./public/users.txt", "a"
-	@f.write "Клиент: #{@username}, Телефон: #{@phone}, Дата и время: #{@datetime}, Парикмахер: #{@barber}"
+	@f.write "Клиент: #{@username}, Телефон: #{@phone}, Дата и время: #{@datetime}, Парикмахер: #{@barber}, Цвет окрашивания: #{@color} "
 	@f.close
 
 	erb :message
