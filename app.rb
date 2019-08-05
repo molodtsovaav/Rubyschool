@@ -8,7 +8,6 @@ get '/' do
 end
 
 get '/about' do
-	@error = 'smth wrong!'
 	erb :about
 end
 
@@ -27,12 +26,12 @@ post '/visit' do
 		   :phone => 'Введите номер телефона',
 		   :datetime => 'Введите дату и время'}
 	
-	hh.each do |key, value|
-		if params[key] == ''
-			@error = hh[key]
+	@error = hh.select {|key, _| params[key] == ""}.values.join(",")
+
+		if @error != ''
 			return erb :visit
 		end
-	end
+	
 
 	@message = "Отлично! Уважаемый #{@username}, мы ждем вас в Barber Shop в #{@datetime} к #{@barber}! Цвет окрашивания: #{@color} "
 
