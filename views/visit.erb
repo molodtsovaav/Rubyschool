@@ -4,22 +4,22 @@
 <form action="/visit" method="POST">
   <div class="form-group">
     <label>Ваше имя: </label>
-    <input name="username" type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Ваше имя">
+    <input id="bbbbbb" name="username" type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Ваше имя">
   </div>
 
   <div class="form-group">
     <label>Ваш телефон: </label>
-    <input name="phone" type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Ваш телефон">
+    <input name="phone" type="text" class="form-control cccccc"  aria-describedby="emailHelp" placeholder="Ваш телефон">
   </div>
 
   <div class="form-group">
     <label>Когда вас ждать? </label>
-    <input name="datetime" type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Введите дату и время:">
+    <input id='aaaaaa' name="datetime" type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Введите дату и время:">
   </div>
   	
    <div class="form-group">
   	<label>К какому парикмахеру вы желаете записаться:</label></label>	
-    	<p><select size=4 name="barber">
+    	<p><select size=4 name="barber" class="form-control cccccc" >
     	<option disabled="">Выберите парикмахера:</option> 
     	<option value="Walter White">Walter White</option>
     	<option value="Jassie Pinkman">Jassie Pinkman</option>
@@ -29,6 +29,10 @@
 
 </form>
 
-
+<script type="text/javascript">
+$('#aaaaaa').css('background-color','yellow');
+$('#bbbbbb').css('background-color','blue');
+$('.cccccc').css('background-color','red');
+</script>
 	
   
