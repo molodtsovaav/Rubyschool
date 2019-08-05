@@ -1,0 +1,17 @@
+<h1>Страница администратора</h1>
+                           
+<p>Введенный логин: <%= @login %></p>
+<p>Введенный пароль: <%= @password %></p>
+<p><%= @message %></p>
+
+<form action="/admin" method="POST">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Логин</label>
+    <input type="text" class="form-control" name="aaa" aria-describedby="emailHelp" placeholder="Введите логин">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Пароль</label>
+    <input type="password" class="form-control" name="bbb"  placeholder="Введите пароль">
+  </div>
+  <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
