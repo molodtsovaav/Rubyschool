@@ -48,21 +48,15 @@ end
 
 get '/contacts' do
 	erb :contacts
-end 
-
-post '/contacts' do
-	@email = params[:email]
-	@msg = params[:msg]
-
-	@message = "Спасибо за ваше обращение. Мы обязательно ответим на него в ближайшее время."
 	
+end 
+                          
 
-	@c = File.open "./public/contacts.txt", "a"
-	@c.write "email: #{@email}, Сообщение: #{@msg}"
-	@c.close
 
-	erb :message
-end
+get '/success' do
+ 	erb "Спасибо за ваше обращение. Мы обязательно ответим на него в ближайшее время."
+
+end	
 
 get '/admin' do
 
@@ -82,7 +76,7 @@ post '/admin' do
 	if @login == 'admin' && @password == 'secret'
 		
 		@f = File.open("./public/users.txt").read
-		@c = File.open("./public/contacts.txt").read
+		
 		
 	elsif @login == 'admin' && @password == 'admin'
 		@message = 'Отличная попытка! Доступ запрещен!'
