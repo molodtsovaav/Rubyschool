@@ -1,6 +1,7 @@
 *.txt
 *.db
-.idea/
+.idea
+.idea/*
 .ruby-version
 .ruby-gemset
 manifest.yml
