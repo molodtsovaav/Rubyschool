@@ -2,6 +2,25 @@
 require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
+require 'sqlite3'
+
+db = SQLite3::Database.new 'barbershop.db'
+
+configure do
+  db.execute 'CREATE TABLE IF NOT EXISTS "
+  	Users"
+  	(
+    	  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+        "username" TEXT,
+      	"phone" TEXT,
+       	"datestamp" TEXT,
+      	"barber" TEXT,
+      	"color" TEXT
+		)'
+
+
+end
+
 
 get '/' do
 	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>!!!"			
@@ -30,21 +49,20 @@ post '/visit' do
 
 		if @error != ''
 			return erb :visit
-		end
-	
+    end
 
-	@message = "Отлично! Уважаемый #{@username}, мы ждем вас в Barber Shop в #{@datetime} к #{@barber}! Цвет окрашивания: #{@color} "
+	db = SQLite3::Database.new 'barbershop.db'
+  db.execute' insert into Users (username, phone, datestamp, barber, color) values (?,?,?,?,?)', [@username,@phone,@datetime,@barber,@color]
 
-
-
-	@f = File.open "./public/users.txt", "a"
-	@f.write "Клиент: #{@username}, Телефон: #{@phone}, Дата и время: #{@datetime}, Парикмахер: #{@barber}, Цвет окрашивания: #{@color} "
-	@f.close
+	@message = "Отлично! Уважаемый #{@username}, мы ждем вас в Barber Shop в #{@datetime} к #{@barber}! Цвет окрашивания: #{@color}"
 
 	erb :message
-
-	
 end
+
+#def get_db
+	#return SQLite3::Database.new 'barbershop.db'
+#end
+
 
 get '/contacts' do
 	erb :contacts
@@ -54,36 +72,12 @@ end
 
 
 get '/success' do
- 	erb "Спасибо за ваше обращение. Мы обязательно ответим на него в ближайшее время."
+ 	erb 'Спасибо за ваше обращение. Мы обязательно ответим на него в ближайшее время.'
 
 end	
 
 get '/admin' do
-
-	@title = "Information for admin"
-	
-	
-	
 	erb :pass
-		
 
 end
 
-post '/admin' do
-	@login = params[:aaa]
-	@password = params[:bbb]
-
-	if @login == 'admin' && @password == 'secret'
-		
-		@f = File.open("./public/users.txt").read
-		
-		
-	elsif @login == 'admin' && @password == 'admin'
-		@message = 'Отличная попытка! Доступ запрещен!'
-		erb :pass
-	
-	else  
-		@message = 'Доступ запрещен'
-		erb :pass
-	end
-end
