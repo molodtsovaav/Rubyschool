@@ -3,12 +3,16 @@ require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
 require 'sqlite3'
+require 'byebug'
 
-db = SQLite3::Database.new 'barbershop.db'
+def get_db
+	 return SQLite3::Database.new 'barbershop.db'
+end
 
 configure do
-  db.execute 'CREATE TABLE IF NOT EXISTS "
-  	Users"
+  db = get_db
+  db.execute 'CREATE TABLE IF NOT EXISTS
+  	"Users"
   	(
     	  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
         "username" TEXT,
@@ -51,17 +55,12 @@ post '/visit' do
 			return erb :visit
     end
 
-	db = SQLite3::Database.new 'barbershop.db'
-  db.execute' insert into Users (username, phone, datestamp, barber, color) values (?,?,?,?,?)', [@username,@phone,@datetime,@barber,@color]
+  db = get_db
+  query = db.execute'insert into Users (username, phone, datestamp, barber, color) values (?,?,?,?,?)',
+            [@username, @phone, @datetime, @barber, @color]
 
-	@message = "Отлично! Уважаемый #{@username}, мы ждем вас в Barber Shop в #{@datetime} к #{@barber}! Цвет окрашивания: #{@color}"
-
-	erb :message
+	erb "Отлично! Уважаемый #{@username}, мы ждем вас в Barber Shop в #{@datetime} к #{@barber}! Цвет окрашивания: #{@color}"
 end
-
-#def get_db
-	#return SQLite3::Database.new 'barbershop.db'
-#end
 
 
 get '/contacts' do
