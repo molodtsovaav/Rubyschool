@@ -3,12 +3,12 @@ require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
 require 'sqlite3'
+require 'pry'
 
 db = SQLite3::Database.new 'barbershop.db'
 
 configure do
-  db.execute 'CREATE TABLE IF NOT EXISTS "
-  	Users"
+  db.execute 'CREATE TABLE IF NOT EXISTS "users"
   	(
     	  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
         "username" TEXT,
@@ -17,13 +17,11 @@ configure do
       	"barber" TEXT,
       	"color" TEXT
 		)'
-
-
 end
 
 
 get '/' do
-	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>!!!"			
+	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>!!!"
 end
 
 get '/about' do
@@ -40,11 +38,11 @@ post '/visit' do
 	@datetime = params[:datetime]
 	@barber = params[:barber]
 	@color = params[:color]
-	
+
 	hh = { :username => 'Введите имя',
 		   :phone => 'Введите номер телефона',
 		   :datetime => 'Введите дату и время'}
-	
+
 	@error = hh.select {|key, _| params[key] == ""}.values.join(",")
 
 		if @error != ''
@@ -52,7 +50,7 @@ post '/visit' do
     end
 
 	db = SQLite3::Database.new 'barbershop.db'
-  db.execute' insert into Users (username, phone, datestamp, barber, color) values (?,?,?,?,?)', [@username,@phone,@datetime,@barber,@color]
+  db.execute 'insert into users (username, phone, datestamp, barber, color) values (?,?,?,?,?)', [@username,@phone,@datetime,@barber,@color]
 
 	@message = "Отлично! Уважаемый #{@username}, мы ждем вас в Barber Shop в #{@datetime} к #{@barber}! Цвет окрашивания: #{@color}"
 
@@ -66,18 +64,17 @@ end
 
 get '/contacts' do
 	erb :contacts
-	
-end 
-                          
+
+end
+
 
 
 get '/success' do
  	erb 'Спасибо за ваше обращение. Мы обязательно ответим на него в ближайшее время.'
 
-end	
+end
 
 get '/admin' do
 	erb :pass
 
 end
-
