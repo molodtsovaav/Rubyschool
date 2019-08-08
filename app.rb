@@ -73,8 +73,9 @@ end
 
 
 get '/showusers' do
- 	erb 'Спасибо за ваше обращение. Мы обязательно ответим на него в ближайшее время.'
-
+  db = get_db
+  @results = db.execute 'select * from Users order by id desc'
+ 	erb :showusers
 end	
 
 get '/admin' do
