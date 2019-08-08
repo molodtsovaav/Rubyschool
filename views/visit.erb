@@ -8,13 +8,13 @@
 	</div>
 
 	<div class="form-group">
-    	<label>Ваш телефон: </label>Л
+    	<label>Ваш телефон: </label>
     	<input name="phone" type="text" class="form-control "  aria-describedby="emailHelp" placeholder="Ваш телефон" value="<%=@phone%>" />
 	</div>
 
 	<div class="form-group">
     	<label>Когда вас ждать? </label>
-    	<input  name="datetime" type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Введите дату и время:" value="<%=@datetime%>" />
+    	<input  id="datetimepicker" name="datetime" type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Введите дату и время:" value="<%=@datetime%>" />
 	</div>
   	
 	<div class="form-group">
@@ -52,6 +52,7 @@
 $(function (){
 
 $('#color').simplecolorpicker();
+jQuery('#datetimepicker').datetimepicker();
 
 });
 
