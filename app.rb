@@ -6,7 +6,9 @@ require 'sqlite3'
 require 'byebug'
 
 def get_db
-	 return SQLite3::Database.new 'barbershop.db'
+	 db = SQLite3::Database.new 'barbershop.db'
+  db.results_as_hash = true
+  return db
 end
 
 configure do
@@ -70,7 +72,7 @@ end
                           
 
 
-get '/success' do
+get '/showusers' do
  	erb 'Спасибо за ваше обращение. Мы обязательно ответим на него в ближайшее время.'
 
 end	
