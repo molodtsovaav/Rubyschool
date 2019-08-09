@@ -6,14 +6,14 @@ require 'sqlite3'
 require 'byebug'
 
 def is_barber_exists? db, name
-  db.execute('select * from Barbers where name=?;[name]').length > 0
+  db.execute('select * from Barbers where name=?',[name]).length > 0
 
 end
 
 def seed_db db, barbers
   barbers.each do |barber|
     if !is_barber_exists? db, barber
-      db.execute'insert into Barbers (name) values (?)',[barber]
+      db.execute 'insert into Barbers (name) values (?)',[barber]
     end
   end
 end
@@ -81,7 +81,7 @@ post '/visit' do
   query = db.execute'insert into Users (username, phone, datestamp, barber, color) values (?,?,?,?,?)',
             [@username, @phone, @datetime, @barber, @color]
 
-	erb "Отлично! Уважаемый #{@username}, мы ждем вас в Barber Shop в #{@datetime} к #{@barber}! Цвет окрашивания: #{@color}"
+	erb "<h2>Спасибо, вы записались.</h2> "
 end
 
 
